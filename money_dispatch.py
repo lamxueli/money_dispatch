@@ -6,8 +6,7 @@ def cali_money(target, base_liu, base_li, ex_out_liu, ex_out_li):
     ALPHA = 0.4
     BETA = 0.7
     # 初始化参数列表
-    cur_liu = base_liu
-    cur_li = base_li
+    cur_liu, cur_li = base_liu, base_li
     money_liu_list, money_li_list = [], []
     out_liu_list, out_li_list = [], []
     money_liu_list.append(cur_liu)
@@ -43,10 +42,11 @@ def cali_money(target, base_liu, base_li, ex_out_liu, ex_out_li):
     out_liu_list.append(out_liu)
     out_li_list.append(out_li)
     
-
+    # 计算总支出
     total_out_liu = sum(out_liu_list) 
     total_out_li = sum(out_li_list)
 
+    # 计算支出比例
     k_out_list = []
     for i in range(len(out_liu_list)):
         k_out = out_liu_list[i] / out_li_list[i]
@@ -67,16 +67,19 @@ def save_to_txt(data):
             file.write(f"{k}: {v}\n")
     print(f"数据已成功保存到 {filename} 文件")
 if __name__ == "__main__":
-    target = 6000
+    target = 3000
     base_liu = 20000
     base_li = 8000
     ex_out_liu = 2000 +12000
     ex_out_li = 1500
     
+    # 计算分配结果
     res = cali_money(target=target, 
                base_liu=base_liu, ex_out_liu=ex_out_liu, 
                base_li=base_li, ex_out_li=ex_out_li)
-    print(res)
+    # 打印结果
+    for k,v in res.items():
+        print(f"{k}: {v}")
     # 保存为txt文件
     save_to_txt(res)
 
